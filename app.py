@@ -1,6 +1,12 @@
 import streamlit as st
 
-st.title("Hola, IA 👋")
-nombre = st.text_input("¿Cómo te llamas?")
-if nombre:
-    st.write(f"¡Hola, {nombre}! Esta es mi primera app en internet.")
+st.title("Convertidor a Mayúsculas")
+
+# Caja de texto para ingresar el texto
+texto_usuario = st.text_input("Escribe tu texto aquí:", "")
+
+# Procesamiento del texto
+texto_mayusculas = texto_usuario.upper()
+
+# Caja de texto donde se muestra el resultado procesado
+st.text_area("Texto procesado (en mayúsculas):", value=texto_mayusculas, height=100)
