@@ -24,12 +24,14 @@ La aplicación permite organizar grupos de personas en mesas de evento sin separ
 ### Funcionalidades principales
 
 - Registro de familias o grupos con nombre y número de integrantes.
+- Validación del nombre para evitar valores inválidos o numéricos.
 - Ajuste de la capacidad por mesa desde la barra lateral.
+- Recomendación inteligente de la mejor mesa disponible para cada nuevo grupo.
 - Visualización de las familias registradas en una tabla.
-- Distribución automática por mesas.
+- Distribución automática por mesas con balance de ocupación.
 - Detección de grupos que exceden la capacidad de una mesa.
-- Mapa visual de cada mesa con ocupación, huecos y alertas.
-- Cálculo de métricas: número de mesas necesarias, asientos vacíos y eficiencia general del salón.
+- Mapa visual por mesa con ocupación, huecos y alertas.
+- Cálculo de métricas avanzadas: eficiencia global, ocupación media y mesa más llena.
 
 ### Entradas de usuario
 
@@ -40,6 +42,7 @@ La aplicación permite organizar grupos de personas en mesas de evento sin separ
 ### Salidas generadas
 
 - Lista de familias registradas.
+- Recomendación de mesa según la capacidad disponible.
 - Distribución por mesas.
 - Ocupación total y vacíos en cada mesa.
 - Mensajes de advertencia cuando una familia supera la capacidad.
@@ -52,6 +55,7 @@ La aplicación permite organizar grupos de personas en mesas de evento sin separ
 - Si una familia no cabe en una mesa existente, la app abre una nueva mesa.
 - Si la capacidad por mesa cambia, la distribución se recalcula automáticamente.
 - Si el usuario limpia la lista, la app vuelve a un estado inicial sin datos.
+- Si el nombre del grupo contiene números, la aplicación lo rechaza con un aviso.
 - La aplicación debe mostrar siempre una distribución legible y comprensible para el usuario.
 
 ### Casos límite relevantes
@@ -61,6 +65,13 @@ La aplicación permite organizar grupos de personas en mesas de evento sin separ
 - Lista vacía.
 - Modificación de la capacidad de mesa mientras el usuario ya ha introducido familias.
 - Repetición de nombres o grupos con tamaños muy distintos.
+- Introducción de un nombre con números o caracteres inválidos.
+
+### Mejoras recientes incorporadas
+
+- Recomendación de la mejor mesa según la capacidad disponible antes de agregar un nuevo grupo.
+- Colores por nivel de ocupación para distinguir mesas poco llenas, equilibradas y bien aprovechadas.
+- Métricas avanzadas con ocupación media y mesa más llena para evaluar mejor el uso del salón.
 
 ## 4. La pieza de IA
 
