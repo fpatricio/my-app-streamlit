@@ -63,49 +63,58 @@ else:
     st.info("No hay familias registradas aún. Utiliza el panel izquierdo para añadir grupos.")
 
 # --- Algoritmo de Distribución ---
+def mejor_mesa_para(familias_en_mesa, capacidad_mesa, integrantes):
+    """Devuelve la mejor mesa disponible para ubicar a un grupo, minimizando huecos."""
+    mejor_idx = None
+    mejor_hueco = None
+
+    for idx, mesa in enumerate(familias_en_mesa):
+        ocupados = sum(f['integrantes'] for f in mesa)
+        hueco_disponible = capacidad_mesa - ocupados
+        if hueco_disponible >= integrantes:
+            hueco_restante = hueco_disponible - integrantes
+            if mejor_hueco is None or hueco_restante < mejor_hueco:
+                mejor_hueco = hueco_restante
+                mejor_idx = idx
+
+    return mejor_idx
+
+
 def optimizar_distribucion(familias, capacidad_mesa):
-    # Ordenar familias de mayor a menor para priorizar grupos grandes (First-Fit Decreasing adaptado)
+    # Ordenamos de mayor a menor para priorizar grupos grandes y ahorrar mesas.
     familias_ordenadas = sorted(familias, key=lambda x: x['integrantes'], reverse=True)
-    
-    mesas = [] # Lista de listas, cada sublista contiene diccionarios de familias asignadas
+    mesas = []
     alertas_division = []
-    
+
     for fam in familias_ordenadas:
         nombre = fam['nombre']
         integrantes = fam['integrantes']
-        
-        # Alerta para grupos más grandes que una mesa
+
         if integrantes > capacidad_mesa:
-            alertas_division.append(f"⚠️ **{nombre}** ({integrantes} pers.) excede la capacidad de una mesa ({capacidad_mesa} asientos) y tuvo que ser dividida.")
-            
-            # Dividir la familia en fragmentos
+            alertas_division.append(
+                f"⚠️ **{nombre}** ({integrantes} pers.) excede la capacidad de una mesa ({capacidad_mesa} asientos) y tuvo que ser dividida."
+            )
+
             restante = integrantes
             while restante > 0:
                 tamano_fragmento = min(restante, capacidad_mesa)
-                asignado = False
-                # Intentar meter el fragmento en mesas existentes
-                for mesa in mesas:
-                    asientos_ocupados = sum(f['integrantes'] for f in mesa)
-                    if capacidad_mesa - asientos_ocupados >= tamano_fragmento:
-                        mesa.append({"nombre": f"{nombre} (Grupo)", "integrantes": tamano_fragmento})
-                        asignado = True
-                        break
-                if not asignado:
+                idx_mesa = mejor_mesa_para(mesas, capacidad_mesa, tamano_fragmento)
+
+                if idx_mesa is not None:
+                    mesas[idx_mesa].append({"nombre": f"{nombre} (Grupo)", "integrantes": tamano_fragmento})
+                else:
                     mesas.append([{"nombre": f"{nombre} (Grupo)", "integrantes": tamano_fragmento}])
+
                 restante -= tamano_fragmento
+
         else:
-            # Intentar acomodar la familia entera en una mesa existente sin dividir
-            asignado = False
-            for mesa in mesas:
-                asientos_ocupados = sum(f['integrantes'] for f in mesa)
-                if capacidad_mesa - asientos_ocupados >= integrantes:
-                    mesa.append(fam)
-                    asignado = True
-                    break
-            # Si no cabe en ninguna, abrir nueva mesa
-            if not asignado:
+            idx_mesa = mejor_mesa_para(mesas, capacidad_mesa, integrantes)
+
+            if idx_mesa is not None:
+                mesas[idx_mesa].append(fam)
+            else:
                 mesas.append([fam])
-                
+
     return mesas, alertas_division
 
 # --- Ejecutar Distribución ---
