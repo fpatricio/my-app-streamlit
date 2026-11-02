@@ -1,11 +1,160 @@
 import streamlit as st
 import pandas as pd
 import re
+import math
 
 st.set_page_config(
     page_title="Distribuidor Inteligente de Mesas",
     page_icon="🪑",
     layout="wide"
+)
+
+st.markdown(
+    """
+    <style>
+    :root {
+        --bg: #f4f7fb;
+        --panel: rgba(255,255,255,0.86);
+        --panel-strong: #ffffff;
+        --primary: #2258a8;
+        --primary-soft: #eaf1ff;
+        --success: #2e9f6e;
+        --success-soft: #eafaf2;
+        --warning: #d88d17;
+        --warning-soft: #fff4dc;
+        --muted: #5d6b82;
+        --border: rgba(56,87,130,0.12);
+        --shadow: 0 8px 24px rgba(17, 37, 84, 0.08);
+    }
+
+    [data-testid="stAppViewContainer"] {
+        background: linear-gradient(180deg, #f7f9fc 0%, #edf4ff 100%);
+    }
+
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(242,247,255,0.97));
+        border-right: 1px solid var(--border);
+    }
+
+    .block-container {
+        padding-top: 1.5rem;
+        padding-bottom: 3rem;
+    }
+
+    h1 {
+        color: #173b72;
+        letter-spacing: -0.04em;
+    }
+
+    h2, h3, h4 {
+        color: #1e3d67;
+    }
+
+    .kpi-card {
+        background: var(--panel-strong);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1rem 1.1rem;
+        box-shadow: var(--shadow);
+    }
+
+    .mesa-card {
+        background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1rem 1rem 0.7rem 1rem;
+        box-shadow: var(--shadow);
+        min-height: 260px;
+    }
+
+    .metric-label {
+        font-size: 0.78rem;
+        color: var(--muted);
+        margin-bottom: 0.35rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .metric-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #183969;
+    }
+
+    .status-pill {
+        display: inline-block;
+        padding: 0.3rem 0.7rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+    }
+
+    .status-empty {
+        background: var(--warning-soft);
+        color: var(--warning);
+    }
+
+    .status-full {
+        background: var(--success-soft);
+        color: var(--success);
+    }
+
+    .status-mid {
+        background: var(--primary-soft);
+        color: var(--primary);
+    }
+
+    .stDataFrame {
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+    }
+
+    .stButton > button {
+        border-radius: 12px;
+        border: none;
+        background: linear-gradient(180deg, #1d5dc7 0%, #184ca9 100%);
+        color: white;
+        font-weight: 600;
+        padding: 0.65rem 1rem;
+    }
+
+    .stButton > button:hover {
+        background: linear-gradient(180deg, #1c4fa7 0%, #153d8d 100%);
+    }
+
+    .stTextInput > div > div > input,
+    .stNumberInput > div > div > input {
+        border-radius: 10px;
+        border: 1px solid rgba(53,80,123,0.18);
+        background: rgba(255,255,255,0.8);
+    }
+
+    .stSuccess {
+        background: var(--success-soft);
+        color: #155e3d;
+        border-radius: 12px;
+        border: 1px solid rgba(46,159,110,0.2);
+    }
+
+    .stWarning {
+        background: var(--warning-soft);
+        color: #8a6005;
+        border-radius: 12px;
+        border: 1px solid rgba(216,141,23,0.18);
+    }
+
+    .stInfo {
+        background: var(--primary-soft);
+        color: #1a4d9a;
+        border-radius: 12px;
+        border: 1px solid rgba(34,88,168,0.12);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
 )
 
 st.title("🪑 Distribuidor Inteligente de Asientos para Eventos")
@@ -190,12 +339,12 @@ if st.session_state.familias:
 
             st.markdown(
                 f"""
-                <div style="background:{color_fondo}; border: 2px solid {color_borde}; border-radius: 12px; padding: 16px; margin-bottom: 16px; color: #1f1f1f;">
-                    <h3 style="margin-top:0;">🍽️ Mesa {idx + 1}</h3>
+                <div style="background:{color_fondo}; border: 2px solid {color_borde}; border-radius: 16px; padding: 16px; margin-bottom: 16px; color: #1f1f1f; box-shadow: 0 10px 22px rgba(17, 37, 84, 0.08);">
+                    <h3 style="margin-top:0; color: #183969;">🍽️ Mesa {idx + 1}</h3>
                     <div><strong>Ocupación:</strong> {asientos_ocupados} / {capacidad_mesa} asientos</div>
                     <div style="margin: 10px 0;"><strong>Estado:</strong> {max(0, min(100, round(ratio * 100)))}%</div>
                     <div>{lista_html}</div>
-                    <div style="margin-top: 10px;">{('⚠️ Quedan ' + str(vacios) + ' asiento(s) vacío(s)') if vacios > 0 else '🎉 Mesa completamente llena'}</div>
+                    <div style="margin-top: 10px; font-weight: 600;">{('⚠️ Quedan ' + str(vacios) + ' asiento(s) vacío(s)') if vacios > 0 else '🎉 Mesa completamente llena'}</div>
                 </div>
                 """,
                 unsafe_allow_html=True
@@ -207,9 +356,13 @@ if st.session_state.familias:
     ocupacion_media = (sum(sum(f['integrantes'] for f in mesa) for mesa in mesas_asignadas) / total_asientos_disponibles) * 100 if total_asientos_disponibles > 0 else 0
     mesa_mas_llena = max((sum(f['integrantes'] for f in mesa) / capacidad_mesa) * 100 for mesa in mesas_asignadas) if mesas_asignadas else 0
 
-    col_metric1.metric("Total de Mesas Necesarias", len(mesas_asignadas))
-    col_metric2.metric("Total Asientos Vacíos", total_asientos_vacios)
-    col_metric3.metric("Eficiencia del Salón", f"{eficiencia:.1f}%")
-    col_metric4.metric("Mesa más llena", f"{mesa_mas_llena:.1f}%")
+    with col_metric1:
+        st.markdown("<div class='kpi-card'><div class='metric-label'>Mesas necesarias</div><div class='metric-value'>%s</div></div>" % len(mesas_asignadas), unsafe_allow_html=True)
+    with col_metric2:
+        st.markdown("<div class='kpi-card'><div class='metric-label'>Asientos vacíos</div><div class='metric-value'>%s</div></div>" % total_asientos_vacios, unsafe_allow_html=True)
+    with col_metric3:
+        st.markdown("<div class='kpi-card'><div class='metric-label'>Eficiencia</div><div class='metric-value'>%s</div></div>" % f"{eficiencia:.1f}%", unsafe_allow_html=True)
+    with col_metric4:
+        st.markdown("<div class='kpi-card'><div class='metric-label'>Mesa más llena</div><div class='metric-value'>%s</div></div>" % f"{mesa_mas_llena:.1f}%", unsafe_allow_html=True)
 
     st.caption(f"📌 Ocupación media general: {ocupacion_media:.1f}%")
