@@ -6,14 +6,17 @@ Aplicación desplegada: https://my-app-app-w24z75mdjdmprrdgiua9ju.streamlit.app/
 Archivo principal de la app: https://github.com/fpatricio/my-app-streamlit/blob/main/app.py
 Archivo de contexto del agente: https://github.com/fpatricio/my-app-streamlit/blob/main/AGENTS.md
 
-Problema y usuario El usuario objetivo de esta aplicación es un organizador de eventos, por ejemplo un responsable de bodas, reuniones empresariales, celebraciones familiares o actos institucionales, que necesita distribuir a los asistentes en mesas de forma ordenada, justa y eficiente.
-Sin la aplicación, este proceso se hace de manera manual. El usuario suele utilizar una lista de grupos o familias, anotar cuántas personas tiene cada uno, probar combinaciones a ojo en una hoja de cálculo o un cuaderno, y volver a revisar si hay familias separadas o demasiados huecos vacíos. Este método consume mucho tiempo, requiere esfuerzo repetitivo y no garantiza que la distribución sea óptima ni consistente.
+Problema y usuario 
+El usuario objetivo de esta aplicación es un organizador de eventos, por ejemplo un responsable de bodas, reuniones empresariales, celebraciones familiares o actos institucionales, que necesita distribuir a los asistentes en mesas de forma ordenada, justa y eficiente.
+Sin la aplicación, este proceso se hace de manera manual. 
+El usuario suele utilizar una lista de grupos o familias, anotar cuántas personas tiene cada uno, probar combinaciones a ojo en una hoja de cálculo o un cuaderno, y volver a revisar si hay familias separadas o demasiados huecos vacíos. Este método consume mucho tiempo, requiere esfuerzo repetitivo y no garantiza que la distribución sea óptima ni consistente.
 
 La app resuelve la parte más tediosa y repetitiva del problema: registrar familias, ordenar grupos por tamaño, distribuirlos en mesas de manera automática y visualizar la ocupación real de cada mesa. La inteligencia aplicada en esta solución no reemplaza la decisión final del usuario, sino que le ayuda a tomar una decisión más rápida y mejor informada.
 
 Lo que queda fuera de la automatización es la validación humana final: por ejemplo, decidir si una mesa debe cambiar de ubicación, si un grupo necesita preferencia especial, o si el organizador quiere ajustar la capacidad o la disposición del salón de acuerdo con criterios no representados en los datos. En otras palabras, la app automatiza la planificación básica, pero la decisión final sigue estando bajo control del responsable del evento.
 
-Especificación La aplicación permite organizar grupos de personas en mesas de evento sin separar a las familias ni desperdiciar demasiado espacio.
+Especificación 
+La aplicación permite organizar grupos de personas en mesas de evento sin separar a las familias ni desperdiciar demasiado espacio.
 Funcionalidades principales:
 
 Registro de familias o grupos con nombre y número de integrantes.
@@ -35,8 +38,8 @@ Distribución por mesas.
 Ocupación total y vacíos en cada mesa.
 Mensajes de advertencia cuando una familia supera la capacidad.
 Indicadores de eficiencia global.
-Criterios de aceptación:
 
+Criterios de aceptación:
 Si la lista de familias está vacía, la aplicación muestra un mensaje informativo y no intenta distribuir nada.
 Si una familia tiene más integrantes que la capacidad de la mesa, la app la divide en fragmentos y avisa claramente al usuario.
 Si una familia no cabe en una mesa existente, la app abre una nueva mesa.
