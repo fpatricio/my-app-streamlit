@@ -5,6 +5,7 @@ Repositorio GitHub: https://github.com/fpatricio/my-app-streamlit
 Aplicación desplegada: https://my-app-app-w24z75mdjdmprrdgiua9ju.streamlit.app/
 Archivo principal de la app: https://github.com/fpatricio/my-app-streamlit/blob/main/app.py
 Archivo de contexto del agente: https://github.com/fpatricio/my-app-streamlit/blob/main/AGENTS.md
+
 Problema y usuario El usuario objetivo de esta aplicación es un organizador de eventos, por ejemplo un responsable de bodas, reuniones empresariales, celebraciones familiares o actos institucionales, que necesita distribuir a los asistentes en mesas de forma ordenada, justa y eficiente.
 Sin la aplicación, este proceso se hace de manera manual. El usuario suele utilizar una lista de grupos o familias, anotar cuántas personas tiene cada uno, probar combinaciones a ojo en una hoja de cálculo o un cuaderno, y volver a revisar si hay familias separadas o demasiados huecos vacíos. Este método consume mucho tiempo, requiere esfuerzo repetitivo y no garantiza que la distribución sea óptima ni consistente.
 
