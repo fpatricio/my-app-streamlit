@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import math
+import re
 
 st.set_page_config(
     page_title="Distribuidor Inteligente de Mesas",
@@ -26,14 +27,29 @@ if 'familias' not in st.session_state:
         {"nombre": "Familia López", "integrantes": 2}
     ]
 
+# Validación del nombre de la familia: solo letras, espacios y caracteres básicos
+
+def nombre_valido(nombre):
+    if not nombre or not nombre.strip():
+        return False
+    nombre_limpio = nombre.strip()
+    patron = r"^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s'\-]+$"
+    return bool(re.fullmatch(patron, nombre_limpio))
+
 with st.sidebar.form("nueva_familia_form", clear_on_submit=True):
-    nombre_fam = st.text_input("Nombre de la Familia / Grupo:")
+    nombre_fam = st.text_input("Nombre de la Familia / Grupo:", placeholder="Ej. Familia Pérez")
     integrantes_fam = st.number_input("Número de integrantes:", min_value=1, max_value=20, value=4, step=1)
     submit_button = st.form_submit_button(label="Agregar Familia")
     
-    if submit_button and nombre_fam:
-        st.session_state.familias.append({"nombre": nombre_fam, "integrantes": int(integrantes_fam)})
-        st.success(f"¡{nombre_fam} agregada!")
+    if submit_button:
+        nombre_limpio = " ".join(nombre_fam.split())
+        if not nombre_limpio:
+            st.warning("Escribe un nombre para la familia o grupo.")
+        elif not nombre_valido(nombre_limpio):
+            st.warning("El nombre solo puede contener letras, espacios, acentos, guion y apóstrofo.")
+        else:
+            st.session_state.familias.append({"nombre": nombre_limpio, "integrantes": int(integrantes_fam)})
+            st.success(f"¡{nombre_limpio} agregada!")
 
 # --- Visualización y Limpieza de Lista ---
 st.subheader("👥 Grupos y Familias Registradas")
