@@ -14,7 +14,7 @@ st.markdown(
     <style>
     :root {
         --bg: #f4f7fb;
-        --panel: rgba(255,255,255,0.86);
+        --panel: rgba(255,255,255,0.9);
         --panel-strong: #ffffff;
         --primary: #2258a8;
         --primary-soft: #eaf1ff;
@@ -24,7 +24,7 @@ st.markdown(
         --warning-soft: #fff4dc;
         --muted: #5d6b82;
         --border: rgba(56,87,130,0.12);
-        --shadow: 0 8px 24px rgba(17, 37, 84, 0.08);
+        --shadow: 0 12px 28px rgba(17, 37, 84, 0.08);
     }
 
     [data-testid="stAppViewContainer"] {
@@ -41,12 +41,29 @@ st.markdown(
         padding-bottom: 3rem;
     }
 
-    h1 {
-        color: #173b72;
+    .hero {
+        background: linear-gradient(135deg, #173b72 0%, #2f6ad5 100%);
+        border-radius: 20px;
+        padding: 1.2rem 1.4rem;
+        color: white;
+        box-shadow: var(--shadow);
+        margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+        color: white !important;
+        margin-bottom: 0.2rem;
+        font-size: 2.1rem;
         letter-spacing: -0.04em;
     }
 
-    h2, h3, h4 {
+    .hero p {
+        margin: 0;
+        color: rgba(255,255,255,0.88);
+        font-size: 1rem;
+    }
+
+    h1, h2, h3, h4 {
         color: #1e3d67;
     }
 
@@ -56,6 +73,7 @@ st.markdown(
         border-radius: 16px;
         padding: 1rem 1.1rem;
         box-shadow: var(--shadow);
+        height: 100%;
     }
 
     .mesa-card {
@@ -64,7 +82,7 @@ st.markdown(
         border-radius: 16px;
         padding: 1rem 1rem 0.7rem 1rem;
         box-shadow: var(--shadow);
-        min-height: 260px;
+        min-height: 245px;
     }
 
     .metric-label {
@@ -83,7 +101,7 @@ st.markdown(
 
     .status-pill {
         display: inline-block;
-        padding: 0.3rem 0.7rem;
+        padding: 0.3rem 0.8rem;
         border-radius: 999px;
         font-size: 0.75rem;
         font-weight: 600;
@@ -118,7 +136,7 @@ st.markdown(
         background: linear-gradient(180deg, #1d5dc7 0%, #184ca9 100%);
         color: white;
         font-weight: 600;
-        padding: 0.65rem 1rem;
+        padding: 0.7rem 1.1rem;
     }
 
     .stButton > button:hover {
@@ -157,11 +175,21 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.title("🪑 Distribuidor Inteligente de Asientos para Eventos")
+st.markdown(
+    """
+    <div class="hero">
+        <h1>🪑 Distribuidor Inteligente de Mesas</h1>
+        <p>Organiza familias y grupos para eventos sin separar a personas ni desperdiciar asientos.</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
 st.write("**Problema:** Evita la separación de familias y minimiza el desperdicio de asientos en tus eventos.")
 
 # --- Configuración del Salón (Sidebar) ---
 st.sidebar.header("1. Configuración del Salón")
+st.sidebar.caption("Ajusta la capacidad del salón y revisa la mejor distribución posible.")
 capacidad_mesa = st.sidebar.number_input("Capacidad por mesa (asientos):", min_value=2, max_value=20, value=8, step=1)
 
 # --- Registro de Familias ---
