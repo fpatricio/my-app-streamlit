@@ -189,6 +189,8 @@ Para este apartado debes añadir 4 capturas en el documento final. Cada una debe
 - Captura 1: App funcionando en el flujo principal con familias registradas y distribución visual por mesas.
 - Captura 2: App respondiendo correctamente ante un caso límite, como una familia que supera la capacidad de una mesa o una lista vacía.
 - Captura 3: Trabajo con el agente o con el archivo AGENTS.md durante el desarrollo del proyecto.
+- <img width="1499" height="885" alt="image" src="https://github.com/user-attachments/assets/e65cf9b9-0a33-4d8d-9c1d-f32dbbf59b87" />
+
 - Captura 4: Evidencia de la prueba, como una captura del proceso de validación o feedback del usuario.
 
 Nota importante: En el documento final, cada captura debe ir acompañada por una línea explicativa breve, sin mostrar claves ni secretos del proyecto.
