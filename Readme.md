@@ -191,7 +191,7 @@ Para este apartado debes añadir 4 capturas en el documento final. Cada una debe
  <img width="1490" height="894" alt="image" src="https://github.com/user-attachments/assets/982a941b-8813-498a-ab9e-28497b89d3c0" />
 
 - Captura 2: App respondiendo correctamente ante un caso límite, como una familia que supera la capacidad de una mesa o una lista vacía.
-Se ingresa el maximo numero de particpantes por mesa y se visualiza que el boton + se desahbilita una vez ingresado el maximo de participantes permitido.
+- Se ingresa el maximo numero de particpantes por mesa y se visualiza que el boton + se desahbilita una vez ingresado el maximo de participantes permitido.
 <img width="908" height="1472" alt="image" src="https://github.com/user-attachments/assets/fcf95117-d74d-446c-a31b-f7118fd67e8a" />
 
 - Captura 3: Trabajo con el agente o con el archivo AGENTS.md durante el desarrollo del proyecto.
@@ -199,11 +199,9 @@ Se ingresa el maximo numero de particpantes por mesa y se visualiza que el boton
  <img width="1499" height="885" alt="image" src="https://github.com/user-attachments/assets/e65cf9b9-0a33-4d8d-9c1d-f32dbbf59b87" />
 
 - Captura 4: Evidencia de la prueba, como una captura del proceso de validación o feedback del usuario.
-Se mejora la parte de la UI donde en la version 0 solo se mostraban 3 meses aun cuando usuario haya ingresado mas familias con mas cantidad de invitados o participantes, se mejoro tambien la parte de la UI de los headers que inicialmente se veia algo bastante como texto simple.
+- Se mejora la parte de la UI donde en la version 0 solo se mostraban 3 meses aun cuando usuario haya ingresado mas familias con mas cantidad de invitados o participantes, se mejoro tambien la parte de la UI de los headers que inicialmente se veia algo bastante como texto simple.
   <img width="1496" height="888" alt="image" src="https://github.com/user-attachments/assets/8065acd8-f386-494f-a846-d513ac6fabc7" />
   <img width="1503" height="899" alt="image" src="https://github.com/user-attachments/assets/5eac44ad-d2a1-4196-92be-c81181b292c0" />
-
-Nota importante: En el documento final, cada captura debe ir acompañada por una línea explicativa breve, sin mostrar claves ni secretos del proyecto.
 
 ## Conclusión
 
