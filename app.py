@@ -295,7 +295,13 @@ def recomendacion_mesa(familias_actuales, capacidad, integrantes_nuevos):
 
 
 with st.sidebar.form("nueva_familia_form", clear_on_submit=True):
-    nombre_fam = st.text_input("Nombre de la Familia / Grupo:", placeholder="Ej. Familia Pérez")
+    nombre_fam = st.text_input(
+        "Nombre de la Familia / Grupo:",
+        placeholder="Ej. Familia Pérez",
+        max_chars=250,
+        help="Máximo 250 caracteres."
+    )
+    st.caption("Máximo: 250 caracteres.")
     integrantes_fam = st.number_input("Número de integrantes:", min_value=1, max_value=20, value=4, step=1)
     submit_button = st.form_submit_button(label="Agregar Familia")
 
@@ -311,6 +317,8 @@ with st.sidebar.form("nueva_familia_form", clear_on_submit=True):
         nombre_limpio = " ".join(nombre_fam.split())
         if not nombre_limpio:
             st.warning("Escribe un nombre para la familia o grupo.")
+        elif len(nombre_limpio) > 250:
+            st.warning("El nombre no puede superar los 250 caracteres.")
         elif not nombre_valido(nombre_limpio):
             st.warning("El nombre solo puede contener letras, espacios, acentos, guion y apóstrofo.")
         else:
